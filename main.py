@@ -1,14 +1,16 @@
 import cv2
-
+import image_prosessing_main as ip
 
 def setup():
     #setUpLogFile()
     #willYouBeWifi()  set up telemetry link
     #setupSensors()   set up sensor stuff
     #setUpCamera()    set up camera link?
-    #setupImgProsessing() set up img prosessing (slå sammen med den over?)
+    blobDetector = ip.initImgProsessing() #init img prosessing, returning blobDetector = trash
+
 
 def main():
+    print("main")
     #camera()?
     #prosessFrame()? slå sammen med den over?
     #sensorStuff() 
@@ -16,4 +18,5 @@ def main():
     #reciveveData()? (slå sammen med den over?)
 
 if __name__=="__main__":
+    setup()
     main()
