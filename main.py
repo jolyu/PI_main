@@ -1,8 +1,9 @@
 import cv2
 import image_prosessing_main as ip
+import logging_setup as ls
 
 def setup():
-    #setUpLogFile()
+    ls.initLogging() #setUpLogFile()
     #willYouBeWifi()  set up telemetry link
     #setupSensors()   set up sensor stuff
     #setUpCamera()    set up camera link?
