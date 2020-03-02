@@ -2,9 +2,9 @@ import logging
 
 def initLogging(): 
     logging.basicConfig(filename='logFile.log', format='%(levelname)s %(asctime)s %(message)s', level=logging.INFO)     #oppretter logfil
-    info('Program started')                                                                                         #første melding
+    info('Program started')                                                                                             #første melding
 
-def info(streng):                                                                                                       #for å kunne bruke ls.info() fremfor ls.logging.info()
+def info(streng):                                                                                                       #for å kunne bruke log.info() fremfor log.logging.info() i main.py
     logging.info(streng)
 
 def warning(streng):

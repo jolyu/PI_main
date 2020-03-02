@@ -1,33 +1,37 @@
 import cv2
+import numpy as np
 import extra_greyscaling
+import logging_setup as log
+import time
 
 def initBlobDetector():
-    # Setup SimpleBlobDetector parameters.
+     # Setup SimpleBlobDetector parameters.
     params = cv2.SimpleBlobDetector_Params()
 
     # Change thresholds
-    params.minThreshold = 0
-    params.maxThreshold = 40
+    params.minThreshold = 5
+    params.maxThreshold = 70
 
 
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 100
+    params.minArea = 30
 
     # Filter by Circularity
     params.filterByCircularity = True
-    params.minCircularity = 0.1
+    params.minCircularity = 0.01
 
     # Filter by Convexity
     params.filterByConvexity = True
-    params.minConvexity = 0.87
+    params.minConvexity = 0.7
 
     # Filter by Inertia
-    params.filterByInertia = True
-    params.minInertiaRatio = 0.01
+    params.filterByInertia = False
+    params.minInertiaRatio = 0.05
 
 
     #determine cv version
+    print(cv2.__version__)
     if cv2.__version__.startswith('2'):
         detector = cv2.SimpleBlobDetector(params)
     else:
@@ -36,27 +40,31 @@ def initBlobDetector():
     return detector
 
 def readImage(img):
-    # read image IN COLOR
-    img = cv2.imread('FLIR0027.jpg', cv2.IMREAD_COLOR)
-    # put fancy B2G algorithm 
+    # read image in greyscale
+
+    img = cv2.imread(img, cv2.IMREAD_COLOR)
     img = cv2.resize(img, (650,500))
     img = 255-img
-    img = img[40:470, 0:610]
+    img = img[50:460, 10:610]
     return img
     
 def detectStuff(img, detector):
     # detect suff
     keypoints = detector.detect(img)
-    #print(len(keypoints))
-    #draw detected keypoints as red circles
-    imgKeyPoints = cv2.drawKeypoints(img, keypoints, np.array([]),(0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-    return imgKeyPoints
+    return keypoints
 
 def initImgProsessing():
     detector = initBlobDetector()
     return detector
 
 if __name__ == "__main__":
-    while(True):
-        readImage()
+    print('start')
+    detector = initBlobDetector()                #initialize blob detector
+    print('got detector')
+    img = readImage('FLIR0026.jpg')
+    print('got img')
+    points = detectStuff(img, detector)
+    print('detected stuff')
+    print(len(points))
+    print('done')
         
