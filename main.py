@@ -25,13 +25,17 @@ def main():
                 imStr = 'FLIR00' + str(i) + '.jpg'
                 img = ip.readImage(imStr)
                 points = ip.detectStuff(img, detector)
-                print(imStr, ' ', len(points))
+                numBlobs = len(points)
+                print(imStr, ' ', numBlobs)
+                logString = imStr + ': ''' + str(numBlobs) + ' blobs detected'
+                log.info(logString)
                 cv2.imshow("preview", img)
                 while cv2.waitKey() != 27:
                     break  
                 cv2.destroyAllWindows()
             except:
-                print(imStr + ' fail')
+                logString = imStr + ': blob detection failed'
+                log.warning(logString)
                 pass
 
 if __name__=="__main__":

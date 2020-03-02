@@ -46,15 +46,18 @@ def readImage(img):
     img = cv2.resize(img, (650,500))
     img = 255-img
     img = img[50:460, 10:610]
+    log.info('Reading image')
     return img
     
 def detectStuff(img, detector):
     # detect suff
     keypoints = detector.detect(img)
+    log.info('Detecting keypoints')
     return keypoints
 
 def initImgProsessing():
     detector = initBlobDetector()
+    log.info('Initilizing detector')
     return detector
 
 if __name__ == "__main__":
