@@ -1,5 +1,5 @@
 import cv2
-from extra_greyscaling import*
+import extra_greyscaling
 
 def initBlobDetector():
     # Setup SimpleBlobDetector parameters.
