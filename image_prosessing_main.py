@@ -36,9 +36,9 @@ def initBlobDetector():
     return detector
 
 def readImage(img):
-    # read image in greyscale
-
-    img = cv2.imread('FLIR0027.jpg', cv2.IMREAD_GRAYSCALE)
+    # read image IN COLOR
+    img = cv2.imread('FLIR0027.jpg', cv2.IMREAD_COLOR)
+    # put fancy B2G algorithm 
     img = cv2.resize(img, (650,500))
     img = 255-img
     img = img[40:470, 0:610]
@@ -58,4 +58,5 @@ def initImgProsessing():
 
 if __name__ == "__main__":
     while(True):
-        print("fuck off")
+        readImage()
+        
