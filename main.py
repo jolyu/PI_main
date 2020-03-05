@@ -28,6 +28,16 @@ def main():
                 img = ip.readImage(imStr)
                 points = ip.detectStuff(img, detector)
                 numBlobs = len(points)
+                
+                try:
+                    data = {
+                        'time': datetime.timestamp(datetime.now()),
+                        'birds': numBlobs,
+                    }
+                    ref.child(data['time']).set(data)
+                except:
+                    logString = imStr + ': Could not upload to database'
+                
                 print(imStr, ' ', numBlobs)
                 logString = imStr + ': ''' + str(numBlobs) + ' blobs detected'
                 log.info(logString)
