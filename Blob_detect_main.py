@@ -61,8 +61,4 @@ def initImgProsessing():
     return detector
 
 if __name__ == "__main__":
-    img = readImage('FLIR0028.jpg')
-    detector = initBlobDetector()
-    keypoints = detectStuff(img,detector)
-    for keypoint in keypoints:
-        print(type(keypoint.pt))
+    print("not main")
