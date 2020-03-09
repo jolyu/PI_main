@@ -61,4 +61,6 @@ def initImgProsessing():
     return detector
 
 if __name__ == "__main__":
+    detector = initImgProsessing()
+    
     print("not main")
