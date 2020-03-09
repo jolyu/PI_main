@@ -39,17 +39,22 @@ def initBlobDetector():
     return detector
 
 def readImage(img):
-    # read image
-    img = cv2.imread(img, cv2.IMREAD_COLOR)
+    # read image in greyscale 
+    img = cv2.imread(img,cv2.IMREAD_GRAYSCALE)            
+                                                    #put fancy G2B algorithm here 
+    img = cv2.resize(img, (650,500))
     img = 255-img
     log.info('Reading image...')
+    #img = img[40:470, 0:610]
     return img
-
-def detect(img, detector):
+    
+def detectStuff(img, detector):
     # detect suff
-    keypoints = detector.detect(img)
+    keyPoints = detector.detect(img)
     log.info('Detecting keypoints...')
-    return keypoints
+    #draw detected keypoints as red circles
+    #imgKeyPoints = cv2.drawKeypoints(img, keypoints, np.array([]),(0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) #uncomment for testing
+    return keyPoints
 
 def initImgProsessing():
     detector = initBlobDetector()
@@ -57,6 +62,5 @@ def initImgProsessing():
     return detector
 
 if __name__ == "__main__":
-    print('not main')
-    
+    print("not main")
         
