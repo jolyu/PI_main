@@ -1,8 +1,9 @@
 import cv2
-import image_prosessing_main as ip
+import Blob_detect_main as ip
 import logging_setup as log
 import setup_database as db
 import time
+
 
 def setup():                                   #setup function
     log.initLogging()                                #setUpLogFile()sets up log file

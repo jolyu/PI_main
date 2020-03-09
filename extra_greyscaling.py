@@ -2,7 +2,7 @@ import cv2
 
 def otsu(img,thresh,max):
     img = cv2.GaussianBlur(img,(5,5),0)
-    ret, img =  cv2.threshold(blur,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)  
+    ret, img =  cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)  
     return img 
 
 def mean(img,thresh,max):
