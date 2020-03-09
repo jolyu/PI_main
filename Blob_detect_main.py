@@ -39,8 +39,7 @@ def initBlobDetector():
     return detector
 
 def readImage(img):
-    # read image in greyscale
-
+    # read image
     img = cv2.imread(img, cv2.IMREAD_COLOR)
     img = 255-img
     log.info('Reading image...')

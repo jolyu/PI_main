@@ -2,6 +2,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 from firebase_admin import auth
+import logging as log
 
 def setupDatabase():
     cred = credentials.Certificate('key.json')
@@ -13,3 +14,14 @@ def setupDatabase():
     ref = db.reference()
     return ref
 
+def transmit(db_ref, numBlobs, sensorStuff):
+        try:
+            data = {
+                'time': datetime.timestamp(datetime.now()),
+                'birds': numBlobs,
+            }
+        
+            db_ref.child(data['time']).set(data)
+            log.info('Uploaded to database')
+        except:
+            log.critical('Could not upload to database')
