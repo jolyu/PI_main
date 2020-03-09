@@ -4,7 +4,7 @@ import logging_setup as log
 import telemetry as tel
 import time
 import Tracking as track
-
+import trackerFunc as tf
 def setup():                                   #setup function
     log.initLogging()                                #setUpLogFile()sets up log file
     log.info('Initializing....')                     #log message
