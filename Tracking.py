@@ -9,4 +9,3 @@ def KeypointsToBoxes(keypoints):
         boxes.append(box)
     return boxes
 
-print("ssessss")
