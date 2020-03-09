@@ -12,7 +12,6 @@ def initBlobDetector():
     params.minThreshold = 5
     params.maxThreshold = 70
 
-
     # Filter by Area.
     params.filterByArea = True
     params.minArea = 30
@@ -43,31 +42,22 @@ def readImage(img):
     # read image in greyscale
 
     img = cv2.imread(img, cv2.IMREAD_COLOR)
-    img = cv2.resize(img, (650,500))
     img = 255-img
-    img = img[50:460, 10:610]
-    log.info('Reading image')
+    log.info('Reading image...')
     return img
     
-def detectStuff(img, detector):
+def detect(img, detector):
     # detect suff
     keypoints = detector.detect(img)
-    log.info('Detecting keypoints')
+    log.info('Detecting keypoints...')
     return keypoints
 
 def initImgProsessing():
     detector = initBlobDetector()
-    log.info('Initilizing detector')
+    log.info('Initilizing detector....')
     return detector
 
 if __name__ == "__main__":
-    print('start')
-    detector = initBlobDetector()                #initialize blob detector
-    print('got detector')
-    img = readImage('FLIR0026.jpg')
-    print('got img')
-    points = detectStuff(img, detector)
-    print('detected stuff')
-    print(len(points))
-    print('done')
+    print('not main')
+    
         
