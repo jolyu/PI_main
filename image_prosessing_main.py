@@ -58,13 +58,6 @@ def initImgProsessing():
     return detector
 
 if __name__ == "__main__":
-    print('start')
-    detector = initBlobDetector()                #initialize blob detector
-    print('got detector')
-    img = readImage('FLIR0026.jpg')
-    print('got img')
-    points = detectStuff(img, detector)
-    print('detected stuff')
-    print(len(points))
-    print('done')
+    print('not main')
+    
         
