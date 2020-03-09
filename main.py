@@ -16,7 +16,7 @@ def main():
     detector, db_ref = setup()                       #setup function
     log.info('Setup completed.')
     log.info('Now running main.')
-
+    tel.transmit(db_ref, 1000, 200)
 
     
 if __name__=="__main__":
