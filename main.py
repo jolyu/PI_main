@@ -19,36 +19,6 @@ def main():
     print('main')
 
     while True:
-                    
-        i=18
-        while i<40:
-            i=i+1
-            try:
-                imStr = 'FLIR00' + str(i) + '.jpg'
-                img = ip.readImage(imStr)
-                points = ip.detectStuff(img, detector)
-                numBlobs = len(points)
-                
-                try:
-                    data = {
-                        'time': datetime.timestamp(datetime.now()),
-                        'birds': numBlobs,
-                    }
-                    ref.child(data['time']).set(data)
-                except:
-                    logString = imStr + ': Could not upload to database'
-                
-                print(imStr, ' ', numBlobs)
-                logString = imStr + ': ''' + str(numBlobs) + ' blobs detected'
-                log.info(logString)
-                cv2.imshow("preview", img)
-                while cv2.waitKey() != 27:
-                    break  
-                cv2.destroyAllWindows()
-            except:
-                logString = imStr + ': blob detection failed'
-                log.warning(logString)
-                pass
-
+        
 if __name__=="__main__":
     main()
