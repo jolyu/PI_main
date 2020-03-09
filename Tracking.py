@@ -9,3 +9,12 @@ def KeypointsToBoxes(keypoints):
         boxes.append(box)
     return boxes
 
+def removeTrackedBlobs(keypoints, boxes):
+    newKeypoints = []
+    for points in keypoints:
+        x,y = points.pt
+        for box in boxes:
+            xb,yb,wb,hb = box
+            if xb<x and x<xb+xw and yb<y and y<yb+hb:
+                newKeypoints.append(points)
+    return newKeypoints
