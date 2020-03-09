@@ -5,28 +5,29 @@ import logging_setup as log
 import time
 
 def initBlobDetector():
-     # Setup SimpleBlobDetector parameters.
+    # Setup SimpleBlobDetector parameters.
     params = cv2.SimpleBlobDetector_Params()
 
     # Change thresholds
-    params.minThreshold = 5
-    params.maxThreshold = 70
+    params.minThreshold = 0
+    params.maxThreshold = 40
+
 
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 30
+    params.minArea = 100
 
     # Filter by Circularity
     params.filterByCircularity = True
-    params.minCircularity = 0.01
+    params.minCircularity = 0.1
 
     # Filter by Convexity
     params.filterByConvexity = True
-    params.minConvexity = 0.7
+    params.minConvexity = 0.87
 
     # Filter by Inertia
-    params.filterByInertia = False
-    params.minInertiaRatio = 0.05
+    params.filterByInertia = True
+    params.minInertiaRatio = 0.01
 
 
     #determine cv version
