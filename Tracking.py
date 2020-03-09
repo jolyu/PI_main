@@ -15,6 +15,6 @@ def removeTrackedBlobs(keypoints, boxes):
         x,y = points.pt
         for box in boxes:
             xb,yb,wb,hb = box
-            if xb<x and x<xb+xw and yb<y and y<yb+hb:
+            if xb<x and x<xb+wb and yb<y and y<yb+hb:
                 newKeypoints.append(points)
     return newKeypoints
