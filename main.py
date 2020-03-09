@@ -27,6 +27,7 @@ def main():
         rval = False
 
     while rval:
+        img = img[40:180, 30:300]
         cv2.imshow("preview", frame)
         rval, frame = vc.read()
         keypoints = ip.detectStuff(frame, detector)
