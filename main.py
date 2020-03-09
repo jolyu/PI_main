@@ -16,9 +16,6 @@ def main():
     log.info('Setup completed')
     log.info('Now running main')
 
-    print('main')
-
-    while True:
         
 if __name__=="__main__":
     main()
