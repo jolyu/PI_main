@@ -10,17 +10,20 @@ def setup():                                   #setup function
     log.info('Initializing....')                     #log message
     detector = ip.initImgProsessing()                #initialize blob detector
     db_ref = tel.setupDatabase()                      #setup database
-    trackerType = "KCF"
-    multiTracker = cv2.MultiTracker_create()
-    birds = 0
+    
     return detector, db_ref
 
 def main():
     detector, db_ref = setup()                       #setup function
+    
+    #declaring some useful variables
+    trackerType = "KCF"
+    multiTracker = cv2.MultiTracker_create()
+    birds = 0
+
     log.info('Setup completed.')
     log.info('Now running main.')
     tel.transmit(db_ref, 1000, 200)
-    #cv2.namedWindow("preview")
     vc = cv2.VideoCapture(0)
 
     if vc.isOpened(): # try to get the first frame
@@ -36,8 +39,8 @@ def main():
         if(not len(newKeypoints==0)):
             birds = birds + len(newKeypoints)
             newBoxes = track.KeypointsToBoxes(newKeypoints)
-            for box in newKeypoints:
-                multiTracker.add(tf.createTrackerByName(trackerType), frame, newBox)
+            for box in newBoxes:
+                multiTracker.add(tf.createTrackerByName(trackerType), frame, box)
         print(birds)
 
         
