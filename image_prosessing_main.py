@@ -12,9 +12,9 @@ def initBlobDetector():
     cv2.createTrackbar('minThresh', 'preview', 0, 255, nothing)
     cv2.createTrackbar('maxThresh', 'preview', 0, 255, nothing)
     cv2.createTrackbar('minArea', 'preview', 0, 200, nothing)
-    cv2.createTrackbar('minCirc', 'preview', 0, 1, nothing)
-    cv2.createTrackbar('minConv', 'preview', 0, 1, nothing)
-    cv2.createTrackbar('minRatio', 'preview', 0, 255, nothing)
+    cv2.createTrackbar('minCirc', 'preview', 0, 100, nothing)
+    cv2.createTrackbar('minConv', 'preview', 0, 100, nothing)
+    cv2.createTrackbar('minRatio', 'preview', 0, 100, nothing)
     # Setup SimpleBlobDetector parameters.
     params = cv2.SimpleBlobDetector_Params()
     '''
@@ -64,10 +64,10 @@ def detectStuff(img, detector):
     
     minThresh = cv2.getTrackbarPos('minThresh', 'preview')
     maxThresh = cv2.getTrackbarPos('maxThresh', 'preview')
-    minArea = cv2.getTrackbarPos('minArea', 'preview')
-    minCirc = cv2.getTrackbarPos('minCirc', 'preview')
-    minConv = cv2.getTrackbarPos('minConv', 'preview')
-    minRatio = cv2.getTrackbarPos('minRatio', 'preview')
+    minArea = float(cv2.getTrackbarPos('minArea', 'preview')/100)
+    minCirc = float(cv2.getTrackbarPos('minCirc', 'preview')/100)
+    minConv = float(cv2.getTrackbarPos('minConv', 'preview')/100)
+    minRatio = float(cv2.getTrackbarPos('minRatio', 'preview')/100)
 
     params = cv2.SimpleBlobDetector_Params()
 # Change thresholds
