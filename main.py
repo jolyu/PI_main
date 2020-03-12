@@ -32,6 +32,7 @@ def main():
 
     while rval:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        frame = cv2.threshold(frame,127,255,cv2.THRESH_BINARY)
         frame = frame[40:180, 30:300]
         cv2.imshow("preview", frame)
         keypoints = ip.detectStuff(frame, detector)
