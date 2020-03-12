@@ -11,7 +11,7 @@ def initBlobDetector():
     cv2.namedWindow('preview')
     cv2.createTrackbar('minThresh', 'preview', 0, 255, nothing)
     cv2.createTrackbar('maxThresh', 'preview', 0, 255, nothing)
-    cv2.createTrackbar('minArea', 'preview', 0, 200, nothing)
+    cv2.createTrackbar('minArea', 'preview', 0, 1000, nothing)
     cv2.createTrackbar('minCirc', 'preview', 0, 100, nothing)
     cv2.createTrackbar('minConv', 'preview', 0, 100, nothing)
     cv2.createTrackbar('minRatio', 'preview', 0, 100, nothing)
