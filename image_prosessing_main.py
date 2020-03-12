@@ -14,7 +14,7 @@ def initBlobDetector():
     cv2.createTrackbar('minRatio', 'preview', 0, 255, nothing)
     # Setup SimpleBlobDetector parameters.
     params = cv2.SimpleBlobDetector_Params()
-'''
+    '''
     # Change thresholds
     params.minThreshold = 100
     params.maxThreshold = 255
@@ -36,7 +36,7 @@ def initBlobDetector():
     params.filterByInertia = True
     params.minInertiaRatio = 0.01
 
-'''
+    '''
     #determine cv version
     print(cv2.__version__)
     if cv2.__version__.startswith('2'):
