@@ -17,9 +17,9 @@ def main():
     #detector, db_ref = setup()                       #setup function
     detector = setup()
     #declaring some useful variables
-    trackerType = "KCF"
-    multiTracker = cv2.MultiTracker_create()
-    birds = 0
+    #trackerType = "KCF"
+    #multiTracker = cv2.MultiTracker_create()
+    #birds = 0
 
     log.info('Setup completed.')
     log.info('Now running main.')
@@ -31,17 +31,18 @@ def main():
         rval = False
 
     while rval:
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         frame = frame[40:180, 30:300]
         cv2.imshow("preview", frame)
-        rval, frame = vc.read()
         keypoints = ip.detectStuff(frame, detector)
         print(len(keypoints))
+        rval, frame = vc.read()
 
         key = cv2.waitKey(20)
         if key == 27: # exit on ESC
             break
 
-    cv2.destroyAllWindow()
+    cv2.destroyAllWindows()
     vc.release()
 
     

@@ -9,13 +9,13 @@ def initBlobDetector():
     params = cv2.SimpleBlobDetector_Params()
 
     # Change thresholds
-    params.minThreshold = 0
-    params.maxThreshold = 40
+    params.minThreshold = 100
+    params.maxThreshold = 255
 
 
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 100
+    params.minArea = 20
 
     # Filter by Circularity
     params.filterByCircularity = True
@@ -46,15 +46,16 @@ def readImage(img):
     img = cv2.resize(img, (650,500))
     img = 255-img
     log.info('Reading image...')
-    #img = img[40:470, 0:610]
+    img = img[40:470, 0:610]
     return img
     
 def detectStuff(img, detector):
     # detect suff
+    
     keyPoints = detector.detect(img)
     log.info('Detecting keypoints...')
     #draw detected keypoints as red circles
-    #imgKeyPoints = cv2.drawKeypoints(img, keypoints, np.array([]),(0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) #uncomment for testing
+    #imgKeyPoints = cv2.drawKeypoints(img, keyPoints, np.array([]),(33,33,33), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) #uncomment for testing
     return keyPoints
 
 def initImgProsessing():
