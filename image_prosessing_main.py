@@ -4,6 +4,9 @@ import extra_greyscaling
 import logging_setup as log
 import time
 
+def nothing(x):
+    pass
+
 def initBlobDetector():
     cv2.namedWindow('preview')
     cv2.createTrackbar('minThresh', 'preview', 0, 255, nothing)
