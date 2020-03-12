@@ -4,7 +4,20 @@ import extra_greyscaling
 import logging_setup as log
 import time
 
+def nothing(x):
+    pass
+
+
 def initBlobDetector():
+    cv2.namedWindow('image')
+    cv2.createTrackbar('minThresh', 'image', 0, 255, nothing)
+    cv2.createTrackbar('maxThresh', 'image', 0, 255, nothing)
+    cv2.createTrackbar('minArea', 'image', 0, 200, nothing)
+    cv2.createTrackbar('minCirc', 'image', 0, 1, nothing)
+    cv2.createTrackbar('minConv', 'image', 0, 1, nothing)
+    cv2.createTrackbar('minRatio', 'image', 0, 255, nothing)
+    cv2.imshow('image', )
+    '''
     # Setup SimpleBlobDetector parameters.
     params = cv2.SimpleBlobDetector_Params()
 
@@ -28,7 +41,7 @@ def initBlobDetector():
     # Filter by Inertia
     params.filterByInertia = True
     params.minInertiaRatio = 0.01
-
+    '''
 
     #determine cv version
     print(cv2.__version__)
@@ -50,6 +63,31 @@ def readImage(img):
     return img
     
 def detectStuff(img, detector):
+    minThresh = cv2.getTrackbarPos('minThresh', 'image')
+    maxThresh = cv2.getTrackbarPos('maxThresh', 'image')
+    minArea = cv2.getTrackbarPos('minArea', 'image')
+    minCirc = cv2.getTrackbarPos('minCirc', 'image')
+    minConv = cv2.getTrackbarPos('minConv', 'image')
+    minRatio = cv2.getTrackbarPos('minRatio', 'image')
+
+    params = cv2.SimpleBlobDetector_Params()
+# Change thresholds
+    params.minThreshold = minThresh
+    params.maxThreshold = maxThresh
+
+
+    # Filter by Area.
+    params.filterByArea = True
+    params.minArea = minArea
+    # Filter by Circularity
+    params.filterByCircularity = True
+    params.minCircularity = minCirc
+    # Filter by Convexity
+    params.filterByConvexity = True
+    params.minConvexity = minConv
+    # Filter by Inertia
+    params.filterByInertia = True
+    params.minInertiaRatio = minRatio
     # detect suff
     keyPoints = detector.detect(img)
     log.info('Detecting keypoints...')
