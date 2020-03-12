@@ -38,6 +38,7 @@ def main():
         frame = frame[40:180, 30:300]
         cv2.imshow("preview", frame)
         keypoints = ip.detectStuff(frame, detector)
+        cv2.imshow("preview_drawCircle",frame)
         print(len(keypoints))
         rval, frame = vc.read()
 

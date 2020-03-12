@@ -91,7 +91,7 @@ def detectStuff(img, detector):
     keyPoints = detector.detect(img)
     log.info('Detecting keypoints...')
     #draw detected keypoints as red circles
-    #imgKeyPoints = cv2.drawKeypoints(img, keyPoints, np.array([]),(33,33,33), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) #uncomment for testing
+    imgKeyPoints = cv2.drawKeypoints(img, keyPoints, np.array([]),(33,33,33), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) #uncomment for testing
     return keyPoints
 
 def initImgProsessing():
