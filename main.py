@@ -36,7 +36,7 @@ def main():
         cv2.imshow("preview", frame)                #show image
         rval, frame = vc.read()                     #read new frame
         success, boxes = multiTracker.update(frame) #update multitracker
-        keypoints = ip.detectStuff(frame, detector) #detect blobs
+        keypoints = ip.detectBirds(frame, detector) #detect blobs
         newKeypoints = track.removeTrackedBlobs(keypoints,boxes) #make list of all new blobs
         if(not len(newKeypoints==0)):               #if new blobs
             birds = birds + len(newKeypoints)       #new bird(s) detected
