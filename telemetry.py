@@ -22,8 +22,7 @@ def transmit(db_ref, numBlobs, sensorStuff):
                 'time': datetime.timestamp(datetime.now()),
                 'birds': numBlobs,
             }
-            dateTimeObj = datetime.now()
-            timestampStr = dateTimeObj.strftime("%H%M%S%f%b%d%Y")
+            timestampStr = str(datetime.timestamp(datetime.now()))
             db_ref.child(timestampStr).set(data)
             log.info('Uploaded to database')
         except:
