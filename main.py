@@ -1,52 +1,72 @@
 import cv2
 import image_prosessing as ip
 import logging_setup as log
-import telemetry as tel
+#import telemetry as tel
 import time
 import Tracking as track
 import trackerFunc as tf
 def setup():                                   #setup function
     log.initLogging()                                #setUpLogFile()sets up log file
     log.info('Initializing....')                     #log message
-    detector = ip.initImgProsessing()                #initialize blob detector
-    db_ref = tel.setupDatabase()                      #setup database
-    
-    return detector, db_ref
+    #db_ref = tel.setupDatabase()                      #setup database
+    return
+    #return db_ref
 
 def main():
-    detector, db_ref = setup()                       #setup function
+    #db_ref = setup()                       #setup function
+    setup()
     
     #declaring some useful variables
-    trackerType = "KCF"
-    multiTracker = cv2.MultiTracker_create()        #make multitacker
+    #trackerType = "KCF"
+    #multiTracker = cv2.MultiTracker_create()        #make multitacker
     birds = 0                                       #total number of birds
 
     log.info('Setup completed.')
     log.info('Now running main.')
-    tel.transmit(db_ref, 1000, 200)                 #test of transmit
+    #tel.transmit(db_ref, 1000, 200)                 #test of transmit
     vc = cv2.VideoCapture(0)                        #start video camera
-
+    
     if vc.isOpened():                               #try to get the first frame
-        rval, frame = vc.read()                     #frame contains image
+        rval, frame = vc.read()   
+        frame = cv2.resize(frame, (650,500))                  #frame contains image
+        try:
+            if frame.shape[2]:
+            # if there is 3rd dimension
+                print('otsu_binary(img) input image should be in grayscale!')
+        except IndexError:
+            pass  # image doesn't have 3rd dimension - proceed
+
     else:
         rval = False                                #camera not working
 
     while rval:
-        img = img[40:180, 30:300]                   #crop image
         cv2.imshow("preview", frame)                #show image
         rval, frame = vc.read()                     #read new frame
-        success, boxes = multiTracker.update(frame) #update multitracker
-        keypoints = ip.detectBirds(frame, detector) #detect blobs
-        newKeypoints = track.removeTrackedBlobs(keypoints,boxes) #make list of all new blobs
-        if(not len(newKeypoints==0)):               #if new blobs
+        frame = cv2.resize(frame, (650,500))
+        #success, boxes = multiTracker.update(frame) #update multitracker
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        try:
+            if frame.shape[2]:
+            # if there is 3rd dimension
+                print('otsu_binary(img) input image should be in grayscale!')
+        except IndexError:
+            pass  # image doesn't have 3rd dimension - proceed
+        filteredFrame = ip.filterImg(frame)
+        keypoints = ip.blobDetection(filteredFrame)
+        #newKeypoints = track.removeTrackedBlobs(keypoints,boxes) #make list of all new blobs
+        '''if(not len(newKeypoints==0)):               #if new blobs
             birds = birds + len(newKeypoints)       #new bird(s) detected
             newBoxes = track.KeypointsToBoxes(newKeypoints)     #Get square box around all new blobs
             for box in newBoxes:
-                multiTracker.add(tf.createTrackerByName(trackerType), frame, box)   #add tracker
+                multiTracker.add(tf.createTrackerByName(trackerType), frame, box)   #add tracker'''
+        birds=len(keypoints)
         print(birds)
+        birds=0
+        if cv2.waitKey(30) == 27: # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
+            break
 
         
-    cv2.destroyAllWindow()
+    cv2.destroyAllWindows()
     vc.release()
 
     
