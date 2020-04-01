@@ -21,9 +21,9 @@ class NewTracker():                     #constructor
         boxes = []
         for idx, el in enumerate(self.trackers):
             retval, box = el.update(frame)
-            if retval == True:          #checks if tracker managed to track
-                boxes.append(box)       #continues to track if valid
-                self.trackerFail[idx] = 0   #if track was sucsessful trackerFail is zero
+            boxes.append(box)
+            if retval == True:              #checks if tracker managed to track
+                self.trackerFail[idx] = 0   #if track was sucsessful trackerFail is set to zero
             else:
                 self.trackerFail[idx] +=1
         for idx, fails in enumerate(self.trackerFail):  
