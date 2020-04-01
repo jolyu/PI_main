@@ -5,6 +5,7 @@ import logging_setup as log
 import time
 import Tracking as track
 import trackerFunc as tf
+import multitracker as mt
 def setup():                                   #setup function
     log.initLogging()                                #setUpLogFile()sets up log file
     log.info('Initializing....')                     #log message
@@ -18,7 +19,7 @@ def main():
     
     #declaring some useful variables
     #trackerType = "KCF"
-    #multiTracker = cv2.MultiTracker_create()        #make multitacker
+    #multiTracker = mt.NewTracker()        #make multitacker
     birds = 0                                       #total number of birds
 
     log.info('Setup completed.')
@@ -43,7 +44,7 @@ def main():
         cv2.imshow("preview", frame)                #show image
         rval, frame = vc.read()                     #read new frame
         frame = cv2.resize(frame, (650,500))
-        #success, boxes = multiTracker.update(frame) #update multitracker
+        #boxes = multiTracker.update(frame)         #update multitracker
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         try:
             if frame.shape[2]:
@@ -58,7 +59,8 @@ def main():
             birds = birds + len(newKeypoints)       #new bird(s) detected
             newBoxes = track.KeypointsToBoxes(newKeypoints)     #Get square box around all new blobs
             for box in newBoxes:
-                multiTracker.add(tf.createTrackerByName(trackerType), frame, box)   #add tracker'''
+                multiTracker.add(tf.createTrackerByName(trackerType))   #add tracker
+                ok = multiTracker.trackers[len(multiTracker.trackers)-1].init(frame, box) #initialize tracker'''
         birds=len(keypoints)
         print(birds)
         birds=0
