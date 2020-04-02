@@ -139,7 +139,7 @@ def initBlobDetector():
 
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 50
+    params.minArea = 10
 
     # Filter by Circularity
     params.filterByCircularity = True
@@ -153,7 +153,7 @@ def initBlobDetector():
     params.filterByInertia = True
     params.minInertiaRatio = 0.0
 
-    detector = cv2.SimpleBlobDetector(params)
+    detector = cv2.SimpleBlobDetector_create(params)
 
     return detector
 

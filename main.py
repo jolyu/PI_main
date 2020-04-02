@@ -52,7 +52,8 @@ def main():
                 print('otsu_binary(img) input image should be in grayscale!')
         except IndexError:
             pass  # image doesn't have 3rd dimension - proceed
-        filteredFrame = ip.filterImg(frame)
+        filteredFrame = ip.filterImg(frame, 1, True) #0=standard threshold, 1=openCV otzu, 2="home made" otzu aka en mellomting. True/False = om man vil ha morphologyoperasjoner
+        cv2.imshow("filt", filteredFrame)
         keypoints = ip.blobDetection(filteredFrame)
         #newKeypoints = track.removeTrackedBlobs(keypoints,boxes) #make list of all new blobs
         '''if(not len(newKeypoints==0)):               #if new blobs
