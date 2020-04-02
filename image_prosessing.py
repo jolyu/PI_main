@@ -3,6 +3,14 @@ import numpy as np
 import logging_setup as log
 import time
 
+#global variables
+SIMPLE_THRESHOLD_FILTER = 0
+CV_OTZU_FILTER = 1
+MANUAL_OTZU_FILTER = 2
+
+MORPHOLOGY_ON = True
+MORPHOLOGY_OFF = False
+
 def readImageFromPath(path, name, ext, amount):
     #Function for reading images from folder. Example: image_5.jpg -> read_image('path', 'image_', 'jpg', 50)
     
@@ -98,7 +106,7 @@ def morphologyFilter(img, kernelSize):
     
     return morphImgClose
 
-def filterImg(img, otzuCase=0, morphology=False):
+def filterImg(img, filterType=0, morphology=False):
     # check if input image is in grayscale (2D)
     # check if input image is in grayscale (2D)
     try:
@@ -113,11 +121,11 @@ def filterImg(img, otzuCase=0, morphology=False):
     #make function to crop img, or make function to remove flir bullshit (do the last)
     invImg = invImg[25:300, 0:200] #temp
 
-    if otzuCase == 0: #regular binary threshold
+    if filterType == SIMPLE_THRESHOLD_FILTER: #regular binary threshold
         _, threshImg = cv2.threshold(invImg, 100, 255, cv2.THRESH_BINARY) #just regular thresholding with random threshold
-    elif otzuCase == 1: #openCV otzu threshold
+    elif filterType == CV_OTZU_FILTER: #openCV otzu threshold
         threshImg = otsu_binary(invImg)
-    elif otzuCase == 2: #manual calculation of otzu threshold value
+    elif filterType == MANUAL_OTZU_FILTER: #manual calculation of otzu threshold value
         threshImg = manual_otsu_binary(invImg)
         
     else:
