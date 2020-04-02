@@ -119,10 +119,10 @@ def filterImg(img, filterType=0, morphology=False):
     invImg = invertImage(img) #some functions are created to work this way
 
     #make function to crop img, or make function to remove flir bullshit (do the last)
-    invImg = invImg[25:300, 0:200] #temp
+    invImg = invImg[20:200, 0:300] #temp
 
     if filterType == SIMPLE_THRESHOLD_FILTER: #regular binary threshold
-        _, threshImg = cv2.threshold(invImg, 100, 255, cv2.THRESH_BINARY) #just regular thresholding with random threshold
+        _, threshImg = cv2.threshold(invImg, 60, 255, cv2.THRESH_BINARY) #just regular thresholding with random threshold
     elif filterType == CV_OTZU_FILTER: #openCV otzu threshold
         threshImg = otsu_binary(invImg)
     elif filterType == MANUAL_OTZU_FILTER: #manual calculation of otzu threshold value
@@ -133,7 +133,7 @@ def filterImg(img, filterType=0, morphology=False):
         raise AttributeError('Good luck debugging! Gotta love good error messages ;)')
         
     if morphology:
-        morphImg = morphologyFilter(threshImg, 4)
+        morphImg = morphologyFilter(threshImg, 5)
         return morphImg
     return threshImg
 
@@ -142,23 +142,27 @@ def initBlobDetector():
     params = cv2.SimpleBlobDetector_Params()
 
     # Change thresholds
-    #params.minThreshold = 0
-    #params.maxThreshold = 40
+    #params.minThreshold = 65
+    #params.maxThreshold = 93
 
+    params.filterByColor = False
+    #params.blobColor = False
     # Filter by Area.
-    params.filterByArea = True
+    params.filterByArea = False
     params.minArea = 10
+    #params.maxArea = 5000
 
     # Filter by Circularity
-    params.filterByCircularity = True
-    params.minCircularity = 0.0
+    params.filterByCircularity = False
+    #params.minCircularity = 0.4
+    #params.maxCircularity = 1
 
     # Filter by Convexity
-    params.filterByConvexity = True
-    params.minConvexity = 0.0
+    params.filterByConvexity = False
+    #params.minConvexity = 0.0
 
     # Filter by Inertia
-    params.filterByInertia = True
+    params.filterByInertia = False
     params.minInertiaRatio = 0.0
 
     detector = cv2.SimpleBlobDetector_create(params)
@@ -173,11 +177,13 @@ def blobDetection(img):
     keyPoints = detector.detect(img)
 
     #draw detected keypoints as red circles
-    #imgKeyPoints = cv2.drawKeypoints(img, keypoints, np.array([]),(0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) #uncomment for testing
-    
+    imgKeyPoints = cv2.drawKeypoints(img, keyPoints, np.array([]),(0,0,255), cv2.DRAW_MATCHES_FLAGS_DEFAULT) #uncomment for testing
+    cv2.imshow('blobs', imgKeyPoints)
     return keyPoints
 
 if __name__ == "__main__":
+    pass 
+'''
     print('Lets have a look at all cases of filter func')
     img = readImage('FLIR0027.jpg')
     cv2.imshow('org',img)
@@ -204,5 +210,6 @@ if __name__ == "__main__":
         if cv2.waitKey(30) == 27: # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
             break
     cv2.destroyAllWindows()
+'''
 
         
