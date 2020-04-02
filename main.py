@@ -25,9 +25,10 @@ def main():
     log.info('Setup completed.')
     log.info('Now running main.')
     #tel.transmit(db_ref, 1000, 200)                 #test of transmit
-    vc = cv2.VideoCapture(0)                        #start video camera
+    #vc = cv2.VideoCapture(0)                        #start video camera
+    vc = cv2.VideoCapture('video1.avi')
     
-    if vc.isOpened():                               #try to get the first frame
+    '''if vc.isOpened():                               #try to get the first frame
         rval, frame = vc.read()   
         frame = cv2.resize(frame, (650,500))                  #frame contains image
         try:
@@ -39,11 +40,19 @@ def main():
 
     else:
         rval = False                                #camera not working
+    '''
 
-    while rval:
+    # Check if camera opened successfully
+
+    if (vc.isOpened()== False): 
+        print("Error opening video stream or file")
+    else:
+        ret, frame = vc.read()
+    while  ret:
         cv2.imshow("preview", frame)                #show image
-        rval, frame = vc.read()                     #read new frame
-        frame = cv2.resize(frame, (650,500))
+        #rval, frame = vc.read()                     #read new frame
+        ret, frame = vc.read()
+        #frame = cv2.resize(frame, (650,500))
         #boxes = multiTracker.update(frame)         #update multitracker
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         
@@ -60,7 +69,7 @@ def main():
         birds=len(keypoints)
         print(birds)
         birds=0
-        if cv2.waitKey(30) == 27: # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
+        if cv2.waitKey(300) == 27: # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
             break
 
         

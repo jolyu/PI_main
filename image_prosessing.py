@@ -119,7 +119,7 @@ def filterImg(img, filterType=0, morphology=False):
     invImg = invertImage(img) #some functions are created to work this way
 
     #make function to crop img, or make function to remove flir bullshit (do the last)
-    invImg = invImg[25:300, 0:200] #temp
+    invImg = invImg[20:200, 0:300] #temp
 
     if filterType == SIMPLE_THRESHOLD_FILTER: #regular binary threshold
         _, threshImg = cv2.threshold(invImg, 100, 255, cv2.THRESH_BINARY) #just regular thresholding with random threshold
@@ -142,12 +142,12 @@ def initBlobDetector():
     params = cv2.SimpleBlobDetector_Params()
 
     # Change thresholds
-    #params.minThreshold = 0
-    #params.maxThreshold = 40
+    params.minThreshold = 0
+    params.maxThreshold = 40
 
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 10
+    params.minArea = 100
 
     # Filter by Circularity
     params.filterByCircularity = True
@@ -173,8 +173,8 @@ def blobDetection(img):
     keyPoints = detector.detect(img)
 
     #draw detected keypoints as red circles
-    #imgKeyPoints = cv2.drawKeypoints(img, keypoints, np.array([]),(0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) #uncomment for testing
-    
+    imgKeyPoints = cv2.drawKeypoints(img, keyPoints, np.array([]),(0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) #uncomment for testing
+    cv2.imshow('blobs', imgKeyPoints)
     return keyPoints
 
 if __name__ == "__main__":
