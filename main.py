@@ -46,12 +46,7 @@ def main():
         frame = cv2.resize(frame, (650,500))
         #boxes = multiTracker.update(frame)         #update multitracker
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        try:
-            if frame.shape[2]:
-            # if there is 3rd dimension
-                print('otsu_binary(img) input image should be in grayscale!')
-        except IndexError:
-            pass  # image doesn't have 3rd dimension - proceed
+        
         filteredFrame = ip.filterImg(frame, ip.CV_OTZU_FILTER, ip.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
         cv2.imshow("filt", filteredFrame)
         keypoints = ip.blobDetection(filteredFrame)
