@@ -19,14 +19,15 @@ class NewTracker():                     #constructor
             
     def update(self, frame):            #method to update multitracker
         boxes = []
-        for idx, el in enumerate(self.trackers):
-            retval, box = el.update(frame)
-            boxes.append(box)
-            if retval == True:              #checks if tracker managed to track
-                self.trackerFail[idx] = 0   #if track was sucsessful trackerFail is set to zero
-            else:
-                self.trackerFail[idx] +=1
-        for idx, fails in enumerate(self.trackerFail):  
-            if fails > 5:               #needs to iterate throug list of tracker
-                self.pop(idx)           #to see how long they have been wrong
+        if len(self.trackers) > 0:
+            for idx, el in enumerate(self.trackers):
+                retval, box = el.update(frame)
+                boxes.append(box)
+                if retval == True:              #checks if tracker managed to track
+                    self.trackerFail[idx] = 0   #if track was sucsessful trackerFail is set to zero
+                else:
+                    self.trackerFail[idx] +=1
+            for idx, fails in enumerate(self.trackerFail):  
+                if fails > 5:               #needs to iterate throug list of tracker
+                    self.pop(idx)           #to see how long they have been wrong
         return boxes         
