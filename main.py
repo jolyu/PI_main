@@ -51,7 +51,7 @@ def main():
         boxes = multiTracker.update(filteredFrame)         #update multitracker
         keypoints = ip.blobDetection(filteredFrame)
         newKeypoints = track.removeTrackedBlobs(keypoints,boxes) #make list of all new blobs
-        if(not len(newKeypoints)==0):               #if new blobs
+        if not(len(newKeypoints)==0):               #if new blobs
             birds = birds + len(newKeypoints)       #new bird(s) detected
             newBoxes = track.KeypointsToBoxes(newKeypoints)     #Get square box around all new blobs
             for box in newBoxes:
