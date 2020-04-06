@@ -45,15 +45,15 @@ def main():
         cv2.imshow("preview", frame)                #show image
         frame = cv2.resize(frame, (650,500))
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        
+         
         filteredFrame = ip.filterImg(frame, ip.CV_OTZU_FILTER, ip.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
         cv2.imshow("filt", filteredFrame)
-        boxes = multiTracker.update(filteredFrame)         #update multitracker
+        boxes = multiTracker.update(filteredFrame)                  #update multitracker
         keypoints = ip.blobDetection(filteredFrame)
-        newKeypoints = track.removeTrackedBlobs(keypoints,boxes) #make list of all new blobs
-        if not(len(newKeypoints)==0):               #if new blobs
-            birds = birds + len(newKeypoints)       #new bird(s) detected
-            newBoxes = track.KeypointsToBoxes(newKeypoints)     #Get square box around all new blobs
+        newKeypoints = track.removeTrackedBlobs(keypoints,boxes)    #make list of all new blobs
+        if len(newKeypoints)>0:                                     #if new blobs
+            birds = birds + len(newKeypoints)                       #new bird(s) detected
+            newBoxes = track.KeypointsToBoxes(newKeypoints)         #Get square box around all new blobs
             for box in newBoxes:
                 multiTracker.add(tf.createTrackerByName(trackerType))   #add tracker
                 ok = multiTracker.trackers[len(multiTracker.trackers)-1].init(filteredFrame, box) #initialize tracker
