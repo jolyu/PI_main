@@ -49,7 +49,7 @@ def main():
         filteredFrame = ip.filterImg(frame, ip.CV_OTZU_FILTER, ip.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
         cv2.imshow("filt", filteredFrame)
         boxes = multiTracker.update(filteredFrame)                  #update multitracker
-        keypoints = ip.blobDetection(filteredFrame)
+        keypoints = ip.blobDetection(filteredFrame) 
         newKeypoints = track.removeTrackedBlobs(keypoints,boxes)    #make list of all new blobs
         if len(newKeypoints)>0:                                     #if new blobs
             birds = birds + len(newKeypoints)                       #new bird(s) detected
