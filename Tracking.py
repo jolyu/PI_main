@@ -15,7 +15,6 @@ def removeTrackedBlobs(keypoints, boxes):
     #print(keypoints)
     diff = []
     try:
-        print('trying')
         for points in keypoints:
             x = points.pt[0]
             y = points.pt[1]
