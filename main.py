@@ -57,9 +57,9 @@ def main():
             for box in newBoxes:
                 multiTracker.add(tf.createTrackerByName(trackerType))   #add tracker
                 ok = multiTracker.trackers[len(multiTracker.trackers)-1].init(filteredFrame, box) #initialize tracker
-        birds=len(keypoints)
+        #birds=len(keypoints)
         print(birds)
-        birds=0
+        #birds=0
         if cv2.waitKey(30) == 27: # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
             break
 
