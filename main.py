@@ -18,7 +18,7 @@ def main():
     setup()
     
     #declaring some useful variables
-    trackerType = "KCF"
+    trackerType = "CSRT" 
     multiTracker = mt.NewTracker()        #make multitacker
     birds = 0                                       #total number of birds
 
