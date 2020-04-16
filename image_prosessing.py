@@ -177,8 +177,8 @@ def blobDetection(img):
     keyPoints = detector.detect(img)
 
     #draw detected keypoints as red circles
-    imgKeyPoints = cv2.drawKeypoints(img, keyPoints, np.array([]),(0,0,255), cv2.DRAW_MATCHES_FLAGS_DEFAULT) #uncomment for testing
-    cv2.imshow('blobs', imgKeyPoints)
+    #imgKeyPoints = cv2.drawKeypoints(img, keyPoints, np.array([]),(0,0,255), cv2.DRAW_MATCHES_FLAGS_DEFAULT) #uncomment for testing
+    #cv2.imshow('blobs', imgKeyPoints)
     return keyPoints
 
 if __name__ == "__main__":
