@@ -17,11 +17,11 @@ class NewTracker():                     #constructor
             self.trackers.pop(ind)      #remove tracker and
             self.trackerFail.pop(ind)   #everything related to it
             
-    def update(self, frame):            #method to update multitracker
+    def update(self, filteredFrame):            #method to update multitracker
         boxes = []
         if len(self.trackers) > 0:
             for idx, el in enumerate(self.trackers):
-                retval, box = el.update(frame)
+                retval, box = el.update(filteredFrame)
                 boxes.append(box)
                 if retval == True:              #checks if tracker managed to track
                     self.trackerFail[idx] = 0   #if track was sucsessful trackerFail is set to zero
