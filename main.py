@@ -12,10 +12,8 @@ def setup():                                            #setup function
     log.info('Initializing....')                        #log message
    
     return
-    #return db_ref
 
 def main():
-    #db_ref = setup()                                    #setup function
     setup()
     
     #declaring some useful variables
