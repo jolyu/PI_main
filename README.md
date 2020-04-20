@@ -1,3 +1,3 @@
 # PI_main
 
-Main program for Raspberry pi
+Python script to run on raspberry pi. Used for image recognition of birds with IR camera.
