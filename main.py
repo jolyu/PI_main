@@ -24,7 +24,7 @@ def main():
     log.info('Setup completed. Now running main')
 
     vc = cv2.VideoCapture(0)                            #start video camera
-    #vc = cv2.VideoCapture("video2.avi")     
+    #vc = cv2.VideoCapture("test_video/video2.avi")     
 
 
     if vc.isOpened():                                   #try to get the first frame
