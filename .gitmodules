@@ -1,3 +1,6 @@
 [submodule "test_video"]
 	path = test_video
 	url = https://github.com/jolyu/test_video
+[submodule "test_pictures"]
+	path = test_pictures
+	url = https://github.com/jolyu/test_pictures
