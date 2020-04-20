@@ -4,3 +4,12 @@
 [submodule "test_pictures"]
 	path = test_pictures
 	url = https://github.com/jolyu/test_pictures
+[submodule "PiToDB"]
+	path = PiToDB
+	url = https://github.com/jolyu/PiToDB
+[submodule "tracking"]
+	path = tracking
+	url = https://github.com/jolyu/tracking
+[submodule "blob-detection"]
+	path = blob-detection
+	url = https://github.com/jolyu/blob-detection
