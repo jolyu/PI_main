@@ -1,6 +1,6 @@
 import cv2
 import image_prosessing as ip
-import logging as log
+import logging_setup as log
 import time
 import Tracking as track
 import trackerFunc as tf
