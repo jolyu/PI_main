@@ -2,7 +2,6 @@ import cv2
 
 def KeypointsToBoxes(keypoints):
     boxes = []
-    print('transforming keypoints to boxes')
     for keypoint in keypoints:
         point = keypoint.pt
         size = int(keypoint.size)
