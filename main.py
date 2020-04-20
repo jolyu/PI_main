@@ -21,8 +21,7 @@ def main():
     multiTracker = mt.NewTracker()                      #make multitacker
     birds = 0                                           #total number of birds
 
-    log.info('Setup completed.')
-    log.info('Now running main.')
+    log.info('Setup completed. \n Now running main:')
 
     vc = cv2.VideoCapture(0)                            #start video camera
     
