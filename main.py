@@ -1,48 +1,49 @@
 import cv2
 import image_prosessing as ip
 import logging as log
-#import telemetry as tel
 import time
 import Tracking as track
 import trackerFunc as tf
 import multitracker as mt
-def setup():                                   #setup function
-    log.initLogging()                                #setUpLogFile()sets up log file
-    log.info('Initializing....')                     #log message
-    #db_ref = tel.setupDatabase()                      #setup database
+
+
+def setup():                                            #setup function
+    log.initLogging()                                   #setUpLogFile()sets up log file
+    log.info('Initializing....')                        #log message
+   
     return
     #return db_ref
 
 def main():
-    #db_ref = setup()                       #setup function
+    #db_ref = setup()                                    #setup function
     setup()
     
     #declaring some useful variables
     trackerType = "CSRT" 
-    multiTracker = mt.NewTracker()        #make multitacker
-    birds = 0                                       #total number of birds
+    multiTracker = mt.NewTracker()                      #make multitacker
+    birds = 0                                           #total number of birds
 
     log.info('Setup completed.')
     log.info('Now running main.')
-    #tel.transmit(db_ref, 1000, 200)                 #test of transmit
-    vc = cv2.VideoCapture(0)                        #start video camera
+    #tel.transmit(db_ref, 1000, 200)                    #test of transmit
+    vc = cv2.VideoCapture(0)                            #start video camera
     
-    if vc.isOpened():                               #try to get the first frame
+    if vc.isOpened():                                   #try to get the first frame
         rval, frame = vc.read()   
-        frame = cv2.resize(frame, (650,500))                  #frame contains image
+        frame = cv2.resize(frame, (650,500))            #frame contains image
         try:
             if frame.shape[2]:
             # if there is 3rd dimension
                 print('otsu_binary(img) input image should be in grayscale!')
         except IndexError:
-            pass  # image doesn't have 3rd dimension - proceed
+            pass                                        # image doesn't have 3rd dimension - proceed
 
     else:
-        rval = False                                #camera not working
+        rval = False                                    #camera not working
 
     while rval:
-        rval, frame = vc.read()                     #read new frame
-        cv2.imshow("preview", frame)                #show image
+        rval, frame = vc.read()                         #read new frame
+        cv2.imshow("preview", frame)                    #show image
         frame = cv2.resize(frame, (650,500))
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
          
