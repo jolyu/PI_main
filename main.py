@@ -1,5 +1,5 @@
 import cv2
-from blob-detection import blob_detection as ip
+from image_prosessing import blob_detection as ip
 from logging_framework import logging_setup as log
 import time
 import Tracking as track

@@ -16,3 +16,6 @@
 [submodule "logging_framework"]
 	path = logging_framework
 	url = https://github.com/jolyu/logging_framework
+[submodule "image_prosessing"]
+	path = image_prosessing
+	url = https://github.com/jolyu/image_prosessing
