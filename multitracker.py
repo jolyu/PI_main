@@ -1,4 +1,5 @@
 import cv2 as cv
+from logging_framework import logging_setup as log
 #import NewTracker as nt
 
 class NewTracker():                     #constructor
@@ -21,8 +22,14 @@ class NewTracker():                     #constructor
         boxes = []
         if len(self.trackers) > 0:
             for idx, el in enumerate(self.trackers):
-                retval, box = el.update(filteredFrame)
-                boxes.append(box)
+                try:
+                    retval, box = el.update(filteredFrame)
+                    boxes.append(box)
+                    #print("all is good")
+                except:
+                    print("Something bad happened")
+                    log.info("")
+
                 if retval == True:              #checks if tracker managed to track
                     self.trackerFail[idx] = 0   #if track was sucsessful trackerFail is set to zero
                 else:

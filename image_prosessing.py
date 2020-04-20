@@ -31,7 +31,7 @@ def readImage(img):
     # read image in greyscale 
     img = cv2.imread(img,cv2.IMREAD_GRAYSCALE)            
 
-    #img = img[40:470, 0:610]
+    img = img[0:, 0:]
     return img
 
 def invertImage(img):
@@ -119,7 +119,7 @@ def filterImg(img, filterType=0, morphology=False):
     invImg = invertImage(img) #some functions are created to work this way
 
     #make function to crop img, or make function to remove flir bullshit (do the last)
-    invImg = invImg[20:200, 0:300] #temp
+    invImg = invImg[25:210,0:300] #temp
 
     if filterType == SIMPLE_THRESHOLD_FILTER: #regular binary threshold
         _, threshImg = cv2.threshold(invImg, 60, 255, cv2.THRESH_BINARY) #just regular thresholding with random threshold
@@ -150,7 +150,7 @@ def initBlobDetector():
     # Filter by Area.
     params.filterByArea = False
     params.minArea = 10
-    #params.maxArea = 5000
+    params.maxArea = 2000
 
     # Filter by Circularity
     params.filterByCircularity = False
@@ -177,8 +177,8 @@ def blobDetection(img):
     keyPoints = detector.detect(img)
 
     #draw detected keypoints as red circles
-    #imgKeyPoints = cv2.drawKeypoints(img, keyPoints, np.array([]),(0,0,255), cv2.DRAW_MATCHES_FLAGS_DEFAULT) #uncomment for testing
-    #cv2.imshow('blobs', imgKeyPoints)
+    imgKeyPoints = cv2.drawKeypoints(img, keyPoints, np.array([]),(0,0,255), cv2.DrawMatchesFlags_DRAW_RICH_KEYPOINTS) #uncomment for testing
+    cv2.imshow('blobs', imgKeyPoints)
     return keyPoints
 
 if __name__ == "__main__":
