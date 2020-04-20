@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import logging_setup as log
+#import logging_setup as log
 import time
 
 #global variables

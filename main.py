@@ -1,11 +1,10 @@
 import cv2
 import image_prosessing as ip
-import logging_setup as log
+from logging_framework import logging_setup as log
 import time
 import Tracking as track
 import trackerFunc as tf
 import multitracker as mt
-
 
 def setup():                                            #setup function
     log.initLogging()                                   #setUpLogFile()sets up log file
@@ -23,7 +22,7 @@ def main():
 
     log.info('Setup completed.')
     log.info('Now running main.')
-    #tel.transmit(db_ref, 1000, 200)                    #test of transmit
+
     vc = cv2.VideoCapture(0)                            #start video camera
     
     if vc.isOpened():                                   #try to get the first frame
