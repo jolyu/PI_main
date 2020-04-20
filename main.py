@@ -8,7 +8,7 @@ import trackerFunc as tf
 import multitracker as mt
 
 def setup():                                            #setup function
-    log.initLogging()                                   #setUpLogFile()sets up log file
+    log.init_logging()                                   #setUpLogFile()sets up log file
     log.info('Initializing....')                        #log message
    
     return
@@ -21,29 +21,33 @@ def main():
     multiTracker = mt.NewTracker()                      #make multitacker
     birds = 0                                           #total number of birds
 
-    log.info('Setup completed. \n Now running main:')
+    log.info('Setup completed. Now running main')
 
-    vc = cv2.VideoCapture(1)                            #start video camera
+    vc = cv2.VideoCapture(0)                            #start video camera
     #vc = cv2.VideoCapture("video2.avi")     
+
+
     if vc.isOpened():                                   #try to get the first frame
         rval, frame = vc.read()   
-        frame = cv2.resize(frame, (650,500))            #frame contains image
         
-        filters.check2D(frame)                          # image doesn't have 3rd dimension - proceed
+        filters.check_2D(frame)                          # image doesn't have 3rd dimension - proceed
 
     else:
         rval = False                                    #camera not working
 
     while rval:
+
         rval, frame = vc.read()                         #read new frame
         cv2.imshow("preview", frame)                    #show image
-        #frame = cv2.resize(frame, (650,500))
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        
          
-        filteredFrame = filters.filterImg(frame, filters.CV_OTZU_FILTER, filters.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
+        #filters
+        filteredFrame = filters.filter_img(frame, filters.MANUAL_OTZU_FILTER, filters.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
         cv2.imshow("filt", filteredFrame)
+
+        #tracking
         boxes = multiTracker.update(filteredFrame)                  #update multitracker
-        keypoints = ip.blobDetection(filteredFrame) 
+        keypoints = ip.blob_detection(filteredFrame) 
         newKeypoints = track.removeTrackedBlobs(keypoints,boxes)    #make list of all new blobs
         if len(newKeypoints)>0:                                     #if new blobs
             birds = birds + len(newKeypoints)                       #new bird(s) detected
