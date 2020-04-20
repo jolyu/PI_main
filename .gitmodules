@@ -10,9 +10,6 @@
 [submodule "tracking"]
 	path = tracking
 	url = https://github.com/jolyu/tracking
-[submodule "blob-detection"]
-	path = blob-detection
-	url = https://github.com/jolyu/blob-detection
 [submodule "logging_framework"]
 	path = logging_framework
 	url = https://github.com/jolyu/logging_framework
