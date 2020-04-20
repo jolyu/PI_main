@@ -29,12 +29,8 @@ def main():
     if vc.isOpened():                                   #try to get the first frame
         rval, frame = vc.read()   
         frame = cv2.resize(frame, (650,500))            #frame contains image
-        try:
-            if frame.shape[2]:
-            # if there is 3rd dimension
-                print('otsu_binary(img) input image should be in grayscale!')
-        except IndexError:
-            pass                                        # image doesn't have 3rd dimension - proceed
+        
+        filters.check2D(frame)                          # image doesn't have 3rd dimension - proceed
 
     else:
         rval = False                                    #camera not working
