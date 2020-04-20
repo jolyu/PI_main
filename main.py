@@ -1,6 +1,6 @@
 import cv2
 import image_prosessing as ip
-import logging_setup as log
+import logging as log
 #import telemetry as tel
 import time
 import Tracking as track
