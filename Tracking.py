@@ -27,3 +27,6 @@ def removeTrackedBlobs(keypoints, boxes):
     except:
         pass
     return newKeypoints
+
+if __name__ == "__main__":
+    pass
