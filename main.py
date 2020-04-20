@@ -1,5 +1,6 @@
 import cv2
 from image_prosessing import blob_detection as ip
+from image_prosessing import filters
 from logging_framework import logging_setup as log
 import time
 import Tracking as track
@@ -44,7 +45,7 @@ def main():
         frame = cv2.resize(frame, (650,500))
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
          
-        filteredFrame = ip.filterImg(frame, ip.CV_OTZU_FILTER, ip.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
+        filteredFrame = filters.filterImg(frame, filters.CV_OTZU_FILTER, filters.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
         cv2.imshow("filt", filteredFrame)
         boxes = multiTracker.update(filteredFrame)                  #update multitracker
         keypoints = ip.blobDetection(filteredFrame) 
