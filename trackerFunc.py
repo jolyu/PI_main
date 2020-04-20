@@ -31,4 +31,4 @@ def createTrackerByName(trackerType):
     return tracker
 
 if __name__ == "__main__":
-    print("Why are you gay?")
+    pass
