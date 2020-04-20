@@ -24,8 +24,8 @@ def main():
     log.info('Setup completed.')
     log.info('Now running main.')
 
-    #vc = cv2.VideoCapture(0)                            #start video camera
-    vc = cv2.VideoCapture("video2.avi")     
+    vc = cv2.VideoCapture(1)                            #start video camera
+    #vc = cv2.VideoCapture("video2.avi")     
     if vc.isOpened():                                   #try to get the first frame
         rval, frame = vc.read()   
         frame = cv2.resize(frame, (650,500))            #frame contains image
@@ -54,7 +54,6 @@ def main():
                 ok = multiTracker.trackers[len(multiTracker.trackers)-1].init(filteredFrame, box) #initialize tracker
         #birds=len(keypoints)
         print(birds)
-        print("test")
         #birds=0
         if cv2.waitKey(30) == 27: # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
             break
