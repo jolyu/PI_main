@@ -2,10 +2,10 @@ import cv2
 from image_prosessing import blob_detection as ip
 from image_prosessing import filters
 from logging_framework import logging_setup as log
+from tracking import trackerFunc as tf
+from tracking import multitracker as mt
+from tracking import Tracking as track
 import time
-import Tracking as track
-import trackerFunc as tf
-import multitracker as mt
 
 def setup():                                            #setup function
     log.init_logging()                                   #setUpLogFile()sets up log file
