@@ -24,7 +24,7 @@ def main():
     log.info('Setup completed. Now running main')
 
     #vc = cv2.VideoCapture(0)                            #start video camera
-    vc = cv2.VideoCapture("test_video/video9_edit1.mp4")     
+    vc = cv2.VideoCapture("test_video/video9.avi")     
 
 
     if vc.isOpened():                                   #try to get the first frame
@@ -44,32 +44,40 @@ def main():
         #filters
         #filteredFrame = filters.filter_img(frame, filters.MANUAL_OTZU_FILTER, filters.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
         filteredFrame = filters.filter_img2(frame)
-        cv2.imshow("filt", filteredFrame)
+        
 
         #tracking
         boxes = multiTracker.update(filteredFrame)                  #update multitracker
         keypoints = ip.blob_detection(filteredFrame) 
-        newKeypoints = track.removeTrackedBlobs(keypoints,boxes)    #make list of all new blobs
+        newKeypoints, oldKeypoints = track.removeTrackedBlobs(keypoints,boxes)    #make list of all new blobs
+        if len(oldKeypoints)>0:
+            trackerImg = ip.draw_blobs(filteredFrame, oldKeypoints, (0,255,0), 'test')
+
         if len(newKeypoints)>0:                                     #if new blobs
+            trackerImg = ip.draw_blobs(filteredFrame, newKeypoints, (255,0,0), 'test')
             birds = birds + len(newKeypoints)                       #new bird(s) detected
             newBoxes = track.KeypointsToBoxes(newKeypoints)         #Get square box around all new blobs
             for box in newBoxes:
+                p1 = (int(box[0]), int(box[1]))
+                p2 = (int(box[0] + box[2]), int(box[1] + box[3]))
+                cv2.rectangle(filteredFrame, p1, p2, (0,0,0), 2, 1)
                 multiTracker.add(tf.createTrackerByName(trackerType))   #add tracker
                 ok = multiTracker.trackers[len(multiTracker.trackers)-1].init(filteredFrame, box) #initialize tracker
         #birds=len(keypoints)
+        cv2.imshow("filt", filteredFrame)
         print(birds)
         #birds=0
-        '''if cv2.waitKey(10) == ord('p'): # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
+        if cv2.waitKey(10) == ord('p'): # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
                 while True:
                     if cv2.waitKey(10) == ord('p'):
-                        break'''
+                        break
         
         '''while True:
                 if cv2.waitKey(10) == ord('a'):
                     break
-                '''
+                
         if cv2.waitKey(30) == 27: # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
-            break
+            break'''
 
         
     cv2.destroyAllWindows()
