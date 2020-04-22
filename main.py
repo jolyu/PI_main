@@ -24,7 +24,7 @@ def main():
     log.info('Setup completed. Now running main')
 
     #vc = cv2.VideoCapture(0)                            #start video camera
-    vc = cv2.VideoCapture("test_video/video9.avi")     
+    vc = cv2.VideoCapture("test_video/video9_edit1.mp4")     
 
 
     if vc.isOpened():                                   #try to get the first frame
@@ -67,6 +67,7 @@ def main():
         cv2.imshow("filt", filteredFrame)
         print(birds)
         #birds=0
+        key = cv2.waitKey(20000) 
         if cv2.waitKey(10) == ord('p'): # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
                 while True:
                     if cv2.waitKey(10) == ord('p'):
