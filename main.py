@@ -23,13 +23,33 @@ def main():
 
     log.info('Setup completed. Now running main')
 
-    #vc = cv2.VideoCapture(0)                            #start video camera
-    vc = cv2.VideoCapture("test_video/video9_edit1.mp4")     
+    vc = cv2.VideoCapture(0)                            #start video camera
+    #vc = cv2.VideoCapture("test_video/video9_edit1.mp4")     
+    # Get the Default resolutions
+    frame_width = int(vc.get(3))
+    frame_height = int(vc.get(4))
 
+    # Get the framerate
+    fps = 9
+
+    # Get filename 
+    File = open("number_of_Videos.txt","r")
+    num = File.readline()
+    File.close()
+    filename = "video" + num + ".avi"
+
+    # Increment number_of_Videos
+    File = open("number_of_Videos.txt","w")
+    File.truncate(0)
+    File.write(str(int(num)+1))
+    File.close()
+
+    # Define the codec and filename.
+    out = cv2.VideoWriter(filename,cv2.VideoWriter_fourcc('M','J','P','G'), fps/4, (frame_width,frame_height))
 
     if vc.isOpened():                                   #try to get the first frame
         rval, frame = vc.read()   
-        
+        out.write(frame)
         filters.check_2D(frame)                          # image doesn't have 3rd dimension - proceed
 
     else:
@@ -39,11 +59,10 @@ def main():
 
         rval, frame = vc.read()                         #read new frame
         cv2.imshow("preview", frame)                    #show image
-        
-         
+
         #filters
-        #filteredFrame = filters.filter_img(frame, filters.MANUAL_OTZU_FILTER, filters.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
-        filteredFrame = filters.filter_img2(frame)
+        filteredFrame = filters.filter_img(frame, filters.MANUAL_OTZU_FILTER, filters.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
+        #filteredFrame = filters.filter_img2(frame)
         
 
         #tracking
@@ -67,22 +86,23 @@ def main():
         cv2.imshow("filt", filteredFrame)
         print(birds)
         #birds=0
-        key = cv2.waitKey(20000) 
+        '''key = cv2.waitKey(20000) 
         if cv2.waitKey(10) == ord('p'): # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
                 while True:
                     if cv2.waitKey(10) == ord('p'):
                         break
         
-        '''while True:
+        while True:
                 if cv2.waitKey(10) == ord('a'):
-                    break
+                    break'''
                 
         if cv2.waitKey(30) == 27: # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
-            break'''
+            break
 
-        
+    log.info('num birds: ' + str(birds))
     cv2.destroyAllWindows()
     vc.release()
+    out.release()
 
 if __name__=="__main__":
     main()
