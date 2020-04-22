@@ -42,7 +42,8 @@ def main():
         
          
         #filters
-        filteredFrame = filters.filter_img(frame, filters.MANUAL_OTZU_FILTER, filters.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
+        #filteredFrame = filters.filter_img(frame, filters.MANUAL_OTZU_FILTER, filters.MORPHOLOGY_ON) #se globale variabler i image_prosessing.py. midterste er type filter som skal brukes, og siste avgjør om man skal ha morphology operasjoner
+        filteredFrame = filters.filter_img2(frame)
         cv2.imshow("filt", filteredFrame)
 
         #tracking
@@ -55,13 +56,18 @@ def main():
             for box in newBoxes:
                 multiTracker.add(tf.createTrackerByName(trackerType))   #add tracker
                 ok = multiTracker.trackers[len(multiTracker.trackers)-1].init(filteredFrame, box) #initialize tracker
-        birds=len(keypoints)
+        #birds=len(keypoints)
         print(birds)
-        birds=0
+        #birds=0
+        '''if cv2.waitKey(10) == ord('p'): # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
+                while True:
+                    if cv2.waitKey(10) == ord('p'):
+                        break'''
+        
         '''while True:
-            if cv2.waitKey(30) == ord('a'): # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
-                break
-'''
+                if cv2.waitKey(10) == ord('a'):
+                    break
+                '''
         if cv2.waitKey(30) == 27: # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
             break
 
