@@ -23,8 +23,8 @@ def main():
 
     log.info('Setup completed. Now running main')
 
-    vc = cv2.VideoCapture(0)                            #start video camera
-    #vc = cv2.VideoCapture("test_video/video2.avi")     
+    #vc = cv2.VideoCapture(0)                            #start video camera
+    vc = cv2.VideoCapture("test_video/video9_edit1.mp4")     
 
 
     if vc.isOpened():                                   #try to get the first frame
@@ -55,9 +55,13 @@ def main():
             for box in newBoxes:
                 multiTracker.add(tf.createTrackerByName(trackerType))   #add tracker
                 ok = multiTracker.trackers[len(multiTracker.trackers)-1].init(filteredFrame, box) #initialize tracker
-        #birds=len(keypoints)
+        birds=len(keypoints)
         print(birds)
-        #birds=0
+        birds=0
+        '''while True:
+            if cv2.waitKey(30) == ord('a'): # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
+                break
+'''
         if cv2.waitKey(30) == 27: # exit on ESC                     #avslutter programmet og lukker alle viduer dersom man trykker ESC
             break
 
